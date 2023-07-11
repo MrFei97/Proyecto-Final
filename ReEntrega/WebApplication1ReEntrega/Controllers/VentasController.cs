@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using WebApplication1ReEntrega.Models;
+using WebApplication1ReEntrega.Repository;
 
 namespace WebApplication1ReEntrega.Controllers
 {
-    public class VentasController : Controller
+    public class VentasController : ApiController
     {
-        // GET: Ventas
-        public ActionResult Index()
+        [HttpGet]
+
+        public List<Ventas> GetVentas()
         {
-            return View();
+
+
+            return ADO_Ventas.ListarVentas();
+
+
         }
+
     }
 }
+
