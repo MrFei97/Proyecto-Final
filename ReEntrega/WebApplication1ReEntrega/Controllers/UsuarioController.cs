@@ -26,21 +26,26 @@ namespace WebApplication1ReEntrega.Controllers
         }
 
 
-        /*
-         * Al habilitar esta linea de codigo, no se muestra el usuario en la API
-         * 
-         * 
-        [HttpGet]
-     
-        public Usuario InicioSesion()
-        {
-            string user = Console.ReadLine();
-            string password = Console.ReadLine();
 
-            return ADO_Usuario.IniciarSesion(user, password);
+        [HttpGet]
+
+        public void InicioSesion(string usuario, string password)
+        {
+          
+
+            ADO_Usuario.IniciarSesion(usuario, password);
+        }
+
+        [HttpPut]
+
+        public void ModUsuario([FromBody]Usuario user)
+        {
+
+
+            ADO_Usuario.ModificarUsuario(user);
         }
 
     }
-       */
+     
 
     }

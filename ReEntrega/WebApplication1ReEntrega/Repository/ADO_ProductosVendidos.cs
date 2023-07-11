@@ -92,5 +92,39 @@ namespace WebApplication1ReEntrega.Repository
 
 
         }
+
+
+        //Modificacion para venta
+        public static void ModificarProductoVendido(ProductosVendidos productoVendido)
+        {
+            string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
+            using (SqlConnection conect = new SqlConnection(connectionString))
+            {
+
+                var query = @"UPDATE productoVendido
+
+                                SET 
+                                Stock = Stock
+                                IdProducto = @IdProducto
+                                IdVenta = @IdVenta
+
+                                WHERE Id = @Id";
+
+
+                conect.Open();
+
+                using (SqlCommand comando = new SqlCommand(query, conect))
+                {
+                    comando.Parameters.Add(new SqlParameter("@Stock", SqlDbType.Int) { Value = productoVendido.Stock });
+                    comando.Parameters.Add(new SqlParameter("@IdProducto", SqlDbType.BigInt) { Value = productoVendido.IdProducto });
+                    comando.Parameters.Add(new SqlParameter("@IdVenta", SqlDbType.BigInt) { Value = productoVendido.IdVenta });
+
+                    comando.ExecuteNonQuery();
+                }
+                conect.Close();
+
+            }
+
+        }
     }
 }

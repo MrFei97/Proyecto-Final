@@ -22,6 +22,24 @@ namespace WebApplication1ReEntrega.Controllers
 
         }
 
+        /* No consegui hacer funcionar esta linea
+        [HttpPost]
+
+        public void NuevaVenta([FromBody] Ventas venta)
+        {
+
+
+            ADO_Producto.ListarProductos();
+
+            ADO_Ventas.CrearVenta(venta);
+
+            ADO_ProductosVendidos.ModificarProductoVendido([FromBody] venta);
+
+
+
+
+        }*/
+
     }
 }
 

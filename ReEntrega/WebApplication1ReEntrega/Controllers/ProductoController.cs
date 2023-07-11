@@ -22,6 +22,41 @@ namespace WebApplication1ReEntrega.Controllers
 
         }
 
+        [HttpPost]
+
+        public void CrearProductos([FromBody] Producto producto)
+        {
+
+
+            ADO_Producto.CrearProducto(producto);
+
+
+        }
+
+        [HttpPut]
+
+        public void ModProducto([FromBody] Producto producto)
+        {
+
+
+            ADO_Producto.ModificarProducto(producto);
+
+
+        }
+
+        [HttpDelete]
+
+        public void EliminarProducto([FromBody] Producto producto)
+        {
+
+
+            ADO_Producto.EliminarProducto(producto);
+
+
+        }
+
+
+
     }
 }
 
