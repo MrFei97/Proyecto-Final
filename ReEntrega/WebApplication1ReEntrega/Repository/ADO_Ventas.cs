@@ -120,5 +120,31 @@ namespace WebApplication1ReEntrega.Repository
 
         }
 
+        //Eliminar venta
+        public static void CancelarVenta(Ventas ventas)
+        {
+            string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
+            using (SqlConnection conect = new SqlConnection(connectionString))
+            {
+
+                var query = @"DELETE Venta
+                                WHERE Id = @Id";
+
+
+                conect.Open();
+
+                using (SqlCommand comando = new SqlCommand(query, conect))
+                {
+                    comando.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = ventas.Id });
+                    comando.ExecuteNonQuery();
+                }
+                conect.Close();
+
+            }
+
+
+
+        }
+
     }
 }

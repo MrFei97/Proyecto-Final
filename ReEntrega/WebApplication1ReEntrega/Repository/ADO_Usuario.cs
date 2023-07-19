@@ -116,7 +116,43 @@ namespace WebApplication1ReEntrega.Repository
 
         }
 
+        //Traer Nombres
+        public static List<Usuario> ListarNombres()
+        {
 
+            string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
+            var query = "SELECT Id, Nombre, Apellido FROM Usuario";
+
+            var listaNombres = new List<Usuario>();
+
+            using (SqlConnection conect = new SqlConnection(connectionString))
+            {
+                conect.Open();
+                using (SqlCommand comando = new SqlCommand(query, conect))
+                {
+
+                    using (SqlDataReader dr = comando.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+                            var usuario = new Usuario();
+                            usuario.Id = Convert.ToInt32(dr["Id"]);
+                            usuario.Nombre = (dr["Nombre"]).ToString();
+                            usuario.Apellido = (dr["Apellido"]).ToString();
+                            listaNombres.Add(usuario);
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+            return listaNombres;
+
+        }
 
 
         public static Usuario GetUsuarios(int id)
@@ -168,11 +204,43 @@ namespace WebApplication1ReEntrega.Repository
 
         }
 
-  
+        //Crear Usuario
+        public static double CrearUsuario(Usuario usuario)
+        {
+            double IdUsuario = 0;
+            string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
+            using (SqlConnection conect = new SqlConnection(connectionString))
+            {
 
-    //Moficar Usuario
+                var query = @"Insert into usuario (Nombre,Apellido,NombreUsuario,Contraseña,Mail)
+                                Values(@Nombre, @Apellido, @NombreUsuario,@Password,@mail); select @@IDENTIFY";
 
-    public static void ModificarUsuario(Usuario usuario)
+                conect.Open();
+
+                using (SqlCommand comando = new SqlCommand(query, conect))
+                {
+
+                    comando.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.Nombre });
+                    comando.Parameters.Add(new SqlParameter("Apellido", SqlDbType.VarChar) { Value = usuario.Apellido });
+                    comando.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.VarChar) { Value = usuario.NombreUsuario });
+                    comando.Parameters.Add(new SqlParameter("Password", SqlDbType.VarChar) { Value = usuario.Password });
+                    comando.Parameters.Add(new SqlParameter("mail", SqlDbType.VarChar) { Value = usuario.Mail });
+
+                }
+                conect.Close();
+
+            }
+
+            return IdUsuario;
+
+
+
+        }
+
+
+        //Modificar Usuario
+
+        public static void ModificarUsuario(Usuario usuario)
     {
         string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
         using (SqlConnection conect = new SqlConnection(connectionString))
@@ -205,6 +273,36 @@ namespace WebApplication1ReEntrega.Repository
         }
 
     }
+
+
+        //Eliminar Usuario
+
+        public static void EliminarUsuario(Usuario usuario)
+        {
+
+            string connectionString = @"Server=DESKTOP-0MNSSFT\SQLEXPRESS;Database=SistemaGestion;Trusted_Connection=True;";
+            using (SqlConnection conect = new SqlConnection(connectionString))
+            {
+
+                var query = @"DELETE usuario 
+                                WHERE Id = @Id";
+
+
+                conect.Open();
+
+                using (SqlCommand comando = new SqlCommand(query, conect))
+                {
+                    comando.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
+                    comando.ExecuteNonQuery();
+                }
+                conect.Close();
+
+            }
+
+        }
+
+
+
     }
 }
  

@@ -28,6 +28,18 @@ namespace WebApplication1ReEntrega.Controllers
 
 
         [HttpGet]
+        public List<Usuario> GetNombres()
+        {
+
+
+            return ADO_Usuario.ListarNombres();
+
+
+        }
+
+
+
+        [HttpGet]
 
         public void InicioSesion(string usuario, string password)
         {
@@ -36,16 +48,46 @@ namespace WebApplication1ReEntrega.Controllers
             ADO_Usuario.IniciarSesion(usuario, password);
         }
 
+       
+
+    
+
+
+    [HttpPost]
+
+    public void CrearUser([FromBody] Usuario user)
+    {
+
+
+        ADO_Usuario.CrearUsuario(user);
+
+    }
+
+
+
         [HttpPut]
 
-        public void ModUsuario([FromBody]Usuario user)
+        public void ModUsuario([FromBody] Usuario user)
         {
 
 
             ADO_Usuario.ModificarUsuario(user);
         }
 
-    }
-     
+
+
+
+        [HttpDelete]
+
+        public void EliminarUser([FromBody] Usuario user)
+        {
+
+
+            ADO_Usuario.EliminarUsuario(user);
+
+
+        }
+
 
     }
+}

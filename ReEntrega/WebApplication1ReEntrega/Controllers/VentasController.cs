@@ -22,7 +22,30 @@ namespace WebApplication1ReEntrega.Controllers
 
         }
 
+        [HttpPost]
+
+        public void CargarVenta([FromBody] Ventas venta)
+        {
+
+            ADO_Ventas.CrearVenta(venta);
+
+        }
+
+        [HttpDelete]
+
+        public void CancelarVenta([FromBody] Ventas venta)
+        {
+
+
+            ADO_Ventas.CancelarVenta(venta);
+
+
+        }
+
+
+
         /* No consegui hacer funcionar esta linea
+         * Ejercicio clase 15
         [HttpPost]
 
         public void NuevaVenta([FromBody] Ventas venta)
